@@ -34,6 +34,16 @@ type DeviceRegistrationResult = record {
     "device_uid": nat32;
 };
 
+type EntityRegistrationInput = variant {
+    "Gateway": GatewayRegistrationInput;
+    "Device": DeviceRegistrationInput;
+};
+
+type EntityRegistrationResult = variant {
+    "Gateway": GatewayRegistrationResult;
+    "Device": DeviceRegistrationResult;
+};
+
 type UserProfile = record {
     "user_principal_id": text;
     "environment_uid": opt nat32;

@@ -1,7 +1,7 @@
 use std::collections::BTreeMap;
 use std::cell::RefCell;
 
-mod interface_types;
+pub mod interface_types;
 pub mod store_types;
 pub mod utils;
 

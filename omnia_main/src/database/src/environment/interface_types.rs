@@ -4,6 +4,8 @@ type EnvironmentUID = u32;
 type GatewayUID = u32;
 type DeviceUID = u32;
 
+
+
 #[derive(Debug, CandidType, Deserialize)]
 pub struct EnvironmentCreationInput {
     pub env_name: String,
@@ -39,3 +41,24 @@ pub struct DeviceRegistrationResult {
     pub device_name: String,
     pub device_uid: DeviceUID,
 }
+
+#[derive(CandidType, Deserialize)]
+pub enum EntityRegistrationInput {
+    Gateway(GatewayRegistrationInput),
+    Device(DeviceRegistrationInput),
+}
+
+impl EntityRegistrationInput {
+    pub fn getEnvironmentUID(&self) -> EnvironmentUID {
+        match self {
+            EntityRegistrationInput::Gateway(gateway) => gateway.env_uid,
+            EntityRegistrationInput::Device(device) => device.env_uid,
+        }
+    }
+}
+
+#[derive(Debug, CandidType, Deserialize)]
+pub enum EntityRegistrationResult {
+    Gateway(GatewayRegistrationResult),
+    Device(DeviceRegistrationResult),
+} 

@@ -2,7 +2,10 @@ use ic_cdk::api::call::ManualReply;
 use ic_cdk::export::Principal;
 use super::USER_PROFILE_STORE;
 use super::store_types as ProfileStoreTypes;
-use super::super::environment::{store_types as EnvironmentStoreTypes, utils as EnvironmentUtils};
+use super::super::environment::{
+    store_types as EnvironmentStoreTypes,
+    utils as EnvironmentUtils
+};
 
 type PrincipalId = String;
 type EnvironmentUID = u32;
