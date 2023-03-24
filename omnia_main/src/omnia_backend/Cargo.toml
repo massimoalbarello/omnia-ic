@@ -15,3 +15,4 @@ ic-cdk-macros = "0.5.2"
 serde = "1.0.111"
 serde_json = "1.0.93"
 omnia_types = { path = "../omnia_types"}
+x509-parser = "0.15.0"

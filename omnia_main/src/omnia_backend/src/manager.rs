@@ -1,3 +1,5 @@
+use x509_parser::pem::parse_x509_pem;
+use x509_parser::parse_x509_certificate;
 use candid::candid_method;
 use ic_cdk::{
     api::{call::call, caller},
@@ -126,4 +128,17 @@ async fn get_registered_gateways(environment_uid: EnvironmentUID) -> MultipleReg
     .unwrap();
 
     res
+}
+
+#[update(name = "parseDeviceCertificate")]
+#[candid_method(update, rename = "parseDeviceCertificate")]
+async fn parse_device_certificate() {
+    let cert_str = "-----BEGIN CERTIFICATE-----\nMIICDTCCAbKgAwIBAgIQe3eNNaVHZutrY7gRg4ItsjAKBggqhkjOPQQDAjBTMQsw\nCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQsIEluYy4xKzApBgNVBAMTIkRp\nZ2lDZXJ0IFJvb3QgQ0EgZm9yIE1BVFRFUiBQS0kgRzEwIBcNMjIwODI0MDAwMDAw\nWhgPOTk5OTEyMzEyMzU5NTlaMFMxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdp\nQ2VydCwgSW5jLjErMCkGA1UEAxMiRGlnaUNlcnQgUm9vdCBDQSBmb3IgTUFUVEVS\nIFBLSSBHMTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABAVbq6wD9zzDXbEObnSN\nOMNLrGyLBok/Le7bYMzRBn8G4aNSEDw1ClO4gAbrZqpDJy5QSmF9VpKPx9FOsvmV\nbZujZjBkMBIGA1UdEwEB/wQIMAYBAf8CAQEwDgYDVR0PAQH/BAQDAgEGMB0GA1Ud\nDgQWBBQyUEUZM0RZm0Zl1Fn9OhXxwRbMvTAfBgNVHSMEGDAWgBQyUEUZM0RZm0Zl\n1Fn9OhXxwRbMvTAKBggqhkjOPQQDAgNJADBGAiEAh88I/wwZ6/x4wrLLZeEZZEQi\nKqmgvTeRD3kPQ1LoCFgCIQCKVfavo16G+mSmMEFD2O/vsx15c2U1SS0rTK/ogRAP\n4g==\n-----END CERTIFICATE-----";
+
+    let cert_bytes = cert_str.as_bytes();
+    let res = parse_x509_pem(cert_bytes);
+    if let Ok((_rem, pem)) = res {
+        let res_x509 = parse_x509_certificate(&pem.contents);
+        print(format!("\nX509 certificate: {:?}", res_x509));
+    }
 }

@@ -43,6 +43,7 @@ service : (opt text, text) -> {
   http_request : (HttpRequest) -> (HttpResponse) query;
   http_request_update : (HttpRequest) -> (HttpResponse);
   initGateway : (text) -> (Result_4);
+  parseDeviceCertificate : () -> ();
   registerGateway : (text, GatewayRegistrationInput) -> (Result_5);
   resetEnvironment : (text) -> (Result_6);
   setEnvironment : (text) -> (Result_6);
